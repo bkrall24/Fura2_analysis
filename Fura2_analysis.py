@@ -1112,6 +1112,8 @@ class group_window(tk.Tk):
             axs2.plot(x,y, color = c)
             axs2.fill_between(x, y-error, y+error, color = c, alpha = 0.3)
 
+            legend_labels.append(frame.name_var.get())
+
         axs2.set_title("Group Delta R/R")
 
         for a in f:
