@@ -129,19 +129,16 @@ class coverslip():
         
 
     def get_metrics(self):
-        """Calculates means, max, min"""  
+        """Calculates mean, max, min"""  
         grouped = self.ratio_dat.iloc[:,2:].groupby('LP', sort = False)
         
         mean_val = grouped.mean()
         max_val = grouped.max()
         min_val = grouped.min()
-
-
         metrics_dat = pd.DataFrame(columns = self.ratio_dat.columns[3:])
         
         for m,n in zip(self.exp_params['metrics'], self.exp_params['ids']):
-            
-    
+        
             if m == 2:
                 metrics_dat.loc[n] = mean_val.loc[n]
                 
@@ -151,8 +148,7 @@ class coverslip():
             if m == 3:
                 metrics_dat.loc[n] = max_val.loc[n]
         
-        
-
+    
         self.delta_dat = (metrics_dat- metrics_dat.iloc[0])/metrics_dat.iloc[0]
         self.metrics_dat = metrics_dat
         
@@ -166,11 +162,8 @@ class coverslip():
         drr = drr.drop('Elapsed', axis = 1)
         drr = drr.drop('LP', axis = 1)
         drr = drr.drop('Time', axis = 1)
-        
-       
         drr = (drr - mean_val.iloc[0,:])/(mean_val.iloc[0,:])
-  
-    
+
         self.drr = drr
     
     def determine_responsive(self):
@@ -208,8 +201,8 @@ class coverslip():
     
     def output_responsive_data(self):
         """Generates and returns a table with responsive metrics"""
-        sub_select = self.responsive & self.responsive.loc['Good_ROIs']
 
+        sub_select = self.responsive & self.responsive.loc['Good_ROIs']
         totals = sub_select.sum(axis = 1)
         percents = (totals/totals[-1])*100
 
@@ -259,20 +252,9 @@ class coverslip():
             initialfile=self.cs_name + ".xlsx",
             title="Save As"
         )
-
-        
-         
-        #new_fn = self.log_file.split('/')[-1]
-        #new_fn2 = new_fn.split('.')[0]
-        #full_path = path+ '/' +self.cs_name + '.xlsx'
-        #boo_array = (self.responsive.sum()/len(self.responsive)) == 1
-
-
         boo_array = self.responsive.loc['Good_ROIs']
-
         mt, dt = self.output_dat_table()
-       
-
+    
         met = []
         for m in self.exp_params['metrics']:
             if m == 2:
