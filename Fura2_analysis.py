@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
 import pandas as pd
-
 import re
 import numpy as np
 import matplotlib.pyplot as plt
