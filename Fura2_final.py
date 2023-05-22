@@ -21,10 +21,10 @@ class coverslip():
         logfile -- string with file
         exp_param -- struct with parameters.
         """
+
         self.log_file = logfile
         self.exp_params = exp_params
-        self.cs_name = self.log_file.split('/')[-1]
-        self.cs_name = self.cs_name.split('.')[0]
+        
 
     def process_coverslip(self):
         """Generates the data associated with coverslip"""
@@ -33,6 +33,8 @@ class coverslip():
         self.get_metrics()
         self.get_delta_ratio()
         self.determine_responsive()
+        self.cs_name = self.log_file.split('/')[-1]
+        self.cs_name = self.cs_name.split('.')[0]
 
         
     def set_params(self, params):
@@ -464,8 +466,9 @@ class experiment(coverslip):
         exp_params -- struct with parameters
         name -- identifier for experiment
         """
-        super().__init__(logfiles, exp_params)
         self.cs_name = name
+        super().__init__(logfiles, exp_params)
+        
         
     def process_experiment(self):
         """ Generate experimental data"""
@@ -1253,7 +1256,11 @@ class group_window(tk.Tk):
             for frame in self.all_groups:
                 cs = frame.grab_window()
                 resp = cs.output_responsive_data()
-                resp.to_excel(writer, sheet_name = frame.name_var.get())
+                resp.to_excel(writer, sheet_name = (frame.name_var.get()+ " Responsive Data")
+                mt, dt = cs.output_dat_table()
+                mt.to_excel(writer, sheet_name = (frame.name_var.get()+ " Ratio Metrics"))
+                dt.to_excel(writer, sheet_name = (frame.name_var.get()+ " Delta Metrics"))
+                            
                 
        full_path_ratio1 = file_path+ '_ratio.png'
        full_path_delta1 = file_path+ '_delta.png'
