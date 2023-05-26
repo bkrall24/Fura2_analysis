@@ -150,7 +150,7 @@ class coverslip():
             if m == 3:
                 metrics_dat.loc[n] = max_val.loc[n]
         
-    
+        metrics_dat.iloc[0].replace(0, np.nan, inplace=True)
         self.delta_dat = (metrics_dat- metrics_dat.iloc[0])/metrics_dat.iloc[0]
         self.metrics_dat = metrics_dat
         
@@ -164,6 +164,8 @@ class coverslip():
         drr = drr.drop('Elapsed', axis = 1)
         drr = drr.drop('LP', axis = 1)
         drr = drr.drop('Time', axis = 1)
+        
+        mean_val.iloc[0].replace(0, np.nan, inplace=True)
         drr = (drr - mean_val.iloc[0,:])/(mean_val.iloc[0,:])
 
         self.drr = drr
