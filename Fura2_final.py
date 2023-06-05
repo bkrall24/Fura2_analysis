@@ -28,13 +28,14 @@ class coverslip():
 
     def process_coverslip(self):
         """Generates the data associated with coverslip"""
+        self.cs_name = self.log_file.split('/')[-1]
+        self.cs_name = self.cs_name.split('.')[0]
         self.__load_FURA_log()
         self.clean_raw_data()
         self.get_metrics()
         self.get_delta_ratio()
         self.determine_responsive()
-        self.cs_name = self.log_file.split('/')[-1]
-        self.cs_name = self.cs_name.split('.')[0]
+
 
         
     def set_params(self, params):
@@ -924,7 +925,6 @@ class main_window(tk.Toplevel):
 
       
         f1 = self.all_cs.plot_ratio(self.average.get())
-        print(self.average.get())
         if not lim_check:
             ax = f1.gca()
             ax.set_ylim(lims[0], lims[1])
@@ -1258,7 +1258,7 @@ class group_window(tk.Tk):
             for frame in self.all_groups:
                 cs = frame.grab_window()
                 resp = cs.output_responsive_data()
-                resp.to_excel(writer, sheet_name = (frame.name_var.get()+ " Responsive Data")
+                resp.to_excel(writer, sheet_name = (frame.name_var.get()+ " Responsive Data"))
                 mt, dt = cs.output_dat_table()
                 mt.to_excel(writer, sheet_name = (frame.name_var.get()+ " Ratio Metrics"))
                 dt.to_excel(writer, sheet_name = (frame.name_var.get()+ " Delta Metrics"))
