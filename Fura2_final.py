@@ -119,11 +119,11 @@ class coverslip():
             [id_values.append("None") for x in range(added)]
             
             if added > 10:
-                mb.showwarning(message = 'Experiment:'+ self.log_file+'is '+str(added/10)+ ' minutes longer than parameters indicate')
+                mb.showwarning(message = 'Experiment: '+ str(self.cs_name) + ' is '+str(added/10)+ ' minutes longer than parameters indicate')
  
 
         if len(id_values) > len(ratio_dat):
-            raise Exception("Parameters indicate longer experiment than data given")
+            mb.showerror(title = "Oops",  message = "Parmaters indicate experiment longer than data given")
     
         ratio_dat.insert(2, 'LP', id_values)
         ratio_dat = ratio_dat.drop(0, axis = 1)
@@ -330,7 +330,8 @@ class coverslip():
             ts.append('End')
 
         
-        t = self.ratio_dat.loc[self.ratio_dat['LP'] != 'None', 3:]
+        t = self.ratio_dat.loc[self.ratio_dat['LP'] != 'None', :]
+        t = t.iloc[:, 3:]
         t = t.loc[:,self.responsive.loc['Good_ROIs']]
 
 
@@ -1219,7 +1220,8 @@ class group_window(tk.Tk):
             if 'End' not in ts:
                 ts.append('End')
 
-            t = cs.ratio_dat.loc[cs.ratio_dat['LP'] != 'None', 3:]
+            t = cs.ratio_dat.loc[cs.ratio_dat['LP'] != 'None', :]
+            t = t.iloc[:, 3:]
             t = t.loc[:,cs.responsive.loc['Good_ROIs']]
 
             y = t.mean(axis = 1)

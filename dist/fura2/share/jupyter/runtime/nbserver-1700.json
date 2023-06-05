@@ -1,0 +1,11 @@
+{
+  "base_url": "/",
+  "hostname": "localhost",
+  "notebook_dir": "C:\\Users\\natet",
+  "password": false,
+  "pid": 1700,
+  "port": 8889,
+  "secure": false,
+  "token": "fbccd1bdb25cf593fe14124e49159c9d3591788dd72604f0",
+  "url": "http://localhost:8889/"
+}
