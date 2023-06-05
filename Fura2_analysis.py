@@ -112,6 +112,7 @@ class coverslip():
                 
 
         if len(id_values) > len(ratio_dat):
+            mb.showerror("Parameters indicate longer experiment than data given")
             raise Exception("Parameters indicate longer experiment than data given")
     
         ratio_dat.insert(2, 'LP', id_values)
@@ -241,7 +242,7 @@ class coverslip():
         file_path = fd.asksaveasfilename(
             defaultextension=".xlxs",
             filetypes=(("Excel files", "*.xlsx"), ("All files", "*.*")),
-            initialfile=self.cs_name + ".xlsx",
+            initialfile=self.cs_name + "a.xlsx",
             title="Save As"
         )
 
@@ -304,7 +305,8 @@ class coverslip():
             ts.append('End')
 
         
-        t = self.ratio_dat.loc[self.ratio_dat['LP'] != 'None', 3:]
+        t = self.ratio_dat.loc[self.ratio_dat['LP'] != 'None', :]
+        t = t.iloc[:,3:]
         t = t.loc[:,self.responsive.loc['Good_ROIs']]
 
 
