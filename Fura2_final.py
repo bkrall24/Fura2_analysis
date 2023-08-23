@@ -690,8 +690,14 @@ class main_window(tk.Toplevel):
         lps_button =tk.Button(top_frame, text="Submit", command = self.populate_LPs)
         load_param_button = tk.Button(top_frame, text = 'Load Parameter File', command = self.load_parameters)
         save_param_button = tk.Button(top_frame, text = 'Save Current Parameters', command = self.save_parameters)
+        sr_label = tk.Label(top_frame, text = 'Sampling Rate')
+        self.sr = tk.IntVar()
+        self.sr.set(10)
+        sr_entry = tk.Entry(top_frame,textvariable = self.sr, width = 2)
 
         lps_label.grid(row = 0, column = 0)
+        sr_label.grid(row = 1, column = 1)
+        sr_entry.grid(row = 1, column  = 2)
         lps_entry.grid(row = 0, column = 1)
         lps_button.grid(row = 0, column = 2)
         load_param_button.grid(row = 0, column = 3)
@@ -761,7 +767,8 @@ class main_window(tk.Toplevel):
         """Pull and return parameters from each frame in the window"""
         df = pd.DataFrame([a.get() for a in self.all_frames])
         LP_length = list(df['time'])
-        sample_rate = 10
+        sample_rate = self.sr.get()
+        print(sample_rate)
         LP_IDs = list(df['name'])
         metrics = list(df['measurement'])
         thresholds = list(df['threshold'])
