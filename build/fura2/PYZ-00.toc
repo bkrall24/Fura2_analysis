@@ -1,4 +1,4 @@
-('C:\\Users\\natet\\Downloads\\Fura2_analysis\\build\\fura2\\PYZ-00.pyz',
+('D:\\Code\\Pupil Analysis\\Fura2_analysis\\build\\fura2\\PYZ-00.pyz',
  [('Cython',
    'c:\\programdata\\anaconda3\\lib\\site-packages\\Cython\\__init__.py',
    'PYMODULE'),
